@@ -7,20 +7,24 @@ public class MovementController : MonoBehaviour
     public float moveSpeed;
     public float jumpHeight;
     private Rigidbody2D rb;
+    public float timeScale;
     private bool isVerticalPressed;
     private bool facingRight = true;
     private Animator animator;
+    private Animation animation;
+    
 
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
+        animation = gameObject.GetComponent<Animation>();
 
     }
 
     void FixedUpdate()
     {
-
+        Time.timeScale = timeScale; 
         //Movement
         float xaxis = Input.GetAxisRaw("Horizontal") * moveSpeed;
         rb.velocity = new Vector2(xaxis, rb.velocity.y);
@@ -42,12 +46,13 @@ public class MovementController : MonoBehaviour
             Flip();
         }
 
-        if (Input.GetAxisRaw("Vertical") > 0) {
+        if (Input.GetButtonDown("Jump")) {
 
             if (rb.velocity.y == 0 && !isVerticalPressed)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
                 animator.SetBool("isJumping", true);
+                animation.Play("jump");
             }
             
             isVerticalPressed = true;
@@ -66,6 +71,7 @@ public class MovementController : MonoBehaviour
         if (rb.velocity.y == 0)
         {
             animator.SetBool("isFalling", false);
+            animator.SetBool("isJumping", false);
         }
 
     }
