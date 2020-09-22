@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,17 +9,21 @@ public class MovementController : MonoBehaviour
     public float jumpHeight;
     private Rigidbody2D rb;
     public float timeScale;
+    public CinemachineVirtualCamera cinemachine;
+    public float XOffset;
+
     private bool isVerticalPressed;
     private bool facingRight = true;
     private Animator animator;
     private Animation animation;
-    
+    private CinemachineFramingTransposer cameraComp;
 
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
         animation = gameObject.GetComponent<Animation>();
+        cameraComp = cinemachine.GetCinemachineComponent<CinemachineFramingTransposer>();
 
     }
 
@@ -41,12 +46,15 @@ public class MovementController : MonoBehaviour
         if (xaxis > 0 && !facingRight)
         {
             Flip();
+            
         }
         else if ( xaxis < 0 && facingRight) {
             Flip();
         }
 
-        if (Input.GetButtonDown("Jump")) {
+        if (Input.GetButtonDown("Jump")
+            || Input.GetAxisRaw("Vertical") > 0 //TODO this is is used to debug in Teamviewer, REMOVE LATER
+            ) {
 
             if (rb.velocity.y == 0 && !isVerticalPressed)
             {
@@ -81,5 +89,7 @@ public class MovementController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+        cameraComp.m_TrackedObjectOffset.x = -XOffset;
+        XOffset = -XOffset;
     }
 }
