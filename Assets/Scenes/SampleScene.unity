@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 90889160}
   - component: {fileID: 90889159}
   m_Layer: 0
-  m_Name: Attack Up
+  m_Name: attack_up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1020,7 +1020,7 @@ GameObject:
   - component: {fileID: 217091625}
   - component: {fileID: 217091624}
   m_Layer: 0
-  m_Name: Attack down
+  m_Name: attack_down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2475,7 +2475,6 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
-  - component: {fileID: 519420030}
   - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
@@ -2492,32 +2491,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
---- !u!114 &519420030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 537e1bf3b69a7174bad23f674b900f5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -3944,7 +3917,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 8.64, y: 12}
+  m_Size: {x: 8.64, y: 11.93}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4004,7 +3977,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 8.64, y: 11.93}
-    newSize: {x: 8.64, y: 12}
+    newSize: {x: 8.64, y: 11.93}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -4045,11 +4018,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c511781243b47604dad8910e81194ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
+  moveSpeed: 15
   jumpHeight: 22
   timeScale: 1
   cinemachine: {fileID: 446008433}
   XOffset: 6.8
+  AttackUp: {fileID: 90889157}
+  AttackForward: {fileID: 2112177272}
+  Attackdown: {fileID: 217091622}
 --- !u!1 &963151545
 GameObject:
   m_ObjectHideFlags: 0
@@ -9227,7 +9203,7 @@ GameObject:
   - component: {fileID: 2112177275}
   - component: {fileID: 2112177274}
   m_Layer: 0
-  m_Name: Attack forward
+  m_Name: attack_forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

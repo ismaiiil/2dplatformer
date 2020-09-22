@@ -11,6 +11,9 @@ public class MovementController : MonoBehaviour
     public float timeScale;
     public CinemachineVirtualCamera cinemachine;
     public float XOffset;
+    public GameObject AttackUp;
+    public GameObject AttackForward;
+    public GameObject Attackdown;
 
     private bool isVerticalPressed;
     private bool facingRight = true;
@@ -29,11 +32,13 @@ public class MovementController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //TODO REMOVE testing animations
         Time.timeScale = timeScale; 
-        //Movement
+        //Apply movespeed to player when move button is pressed
         float xaxis = Input.GetAxisRaw("Horizontal") * moveSpeed;
         rb.velocity = new Vector2(xaxis, rb.velocity.y);
 
+        //animation handling for running
         if (rb.velocity.x != 0)
         {
             animator.SetBool("isRunning",true);
@@ -43,6 +48,7 @@ public class MovementController : MonoBehaviour
             animator.SetBool("isRunning", false);
         }
 
+        //flip player based on running direction
         if (xaxis > 0 && !facingRight)
         {
             Flip();
@@ -52,36 +58,70 @@ public class MovementController : MonoBehaviour
             Flip();
         }
 
+        //handle jump button
         if (Input.GetButtonDown("Jump")
-            || Input.GetAxisRaw("Vertical") > 0 //TODO this is is used to debug in Teamviewer, REMOVE LATER
+            //|| Input.GetAxisRaw("Vertical") > 0 //TODO this is is used to debug in Teamviewer, REMOVE LATER
             ) {
-
-            if (rb.velocity.y == 0 && !isVerticalPressed)
+            if (rb.velocity.y == 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
+                animator.SetBool("isFalling", false);
                 animator.SetBool("isJumping", true);
-                animation.Play("jump");
             }
-            
-            isVerticalPressed = true;
-        }
-        else
-        {
-            isVerticalPressed = false;
+
         }
 
+
+
+        //falling y is negative
         if (rb.velocity.y < 0)
         {
             animator.SetBool("isFalling", true);
             animator.SetBool("isJumping", false);
         }
 
+        //not jumping or falling, static
         if (rb.velocity.y == 0)
         {
             animator.SetBool("isFalling", false);
             animator.SetBool("isJumping", false);
         }
 
+    }
+
+    private void Update()
+    {
+
+        //handle fire button
+        if (Input.GetButtonDown("Fire1"))
+        {
+            if (Input.GetAxisRaw("Vertical") > 0)
+            {
+                AttackUp.SetActive(true);
+
+            }
+            else if (Input.GetAxisRaw("Vertical") < 0 && ( animator.GetBool("isFalling") || animator.GetBool("isJumping")))
+            {
+                Attackdown.SetActive(true);
+            }
+            else
+            {
+                AttackForward.SetActive(true);
+            }
+        }
+
+        if (AttackForward.activeSelf || AttackUp.activeSelf || Attackdown.activeSelf)
+        {
+            StartCoroutine(DelayedInactivate(0.10f));
+        }
+    }
+
+    IEnumerator DelayedInactivate(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        AttackUp.SetActive(false);
+        AttackForward.SetActive(false);
+        Attackdown.SetActive(false);
     }
 
     void Flip() {
