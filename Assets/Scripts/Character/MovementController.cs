@@ -14,12 +14,22 @@ public class MovementController : MonoBehaviour
     public GameObject AttackUp;
     public GameObject AttackForward;
     public GameObject Attackdown;
+    public float AttackDelay;
+    public int framerate;
 
     private bool isVerticalPressed;
     private bool facingRight = true;
     private Animator animator;
     private Animation animation;
     private CinemachineFramingTransposer cameraComp;
+    private bool FUJumping;
+    private float xaxis;
+
+    void Awake()
+    {
+        QualitySettings.vSyncCount = 0;  // VSync must be disabled
+        Application.targetFrameRate = framerate;
+    }
 
     void Start()
     {
@@ -30,67 +40,38 @@ public class MovementController : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    private void Update()
     {
-        //TODO REMOVE testing animations
-        Time.timeScale = timeScale; 
-        //Apply movespeed to player when move button is pressed
-        float xaxis = Input.GetAxisRaw("Horizontal") * moveSpeed;
-        rb.velocity = new Vector2(xaxis, rb.velocity.y);
+
+        xaxis = Input.GetAxisRaw("Horizontal") * moveSpeed;
 
         //animation handling for running
-        if (rb.velocity.x != 0)
+        if (xaxis != 0)
         {
-            animator.SetBool("isRunning",true);
+            animator.SetBool("isRunning", true);
         }
         else
         {
             animator.SetBool("isRunning", false);
         }
 
+        if (Input.GetButtonDown("Jump") && (!animator.GetBool("isFalling") && !animator.GetBool("isJumping")))
+        {
+            animator.SetBool("isFalling", false);
+            animator.SetBool("isJumping", true);
+            FUJumping = true;
+        }
+
         //flip player based on running direction
         if (xaxis > 0 && !facingRight)
         {
             Flip();
-            
+
         }
-        else if ( xaxis < 0 && facingRight) {
+        else if (xaxis < 0 && facingRight)
+        {
             Flip();
         }
-
-        //handle jump button
-        if (Input.GetButtonDown("Jump")
-            //|| Input.GetAxisRaw("Vertical") > 0 //TODO this is is used to debug in Teamviewer, REMOVE LATER
-            ) {
-            if (rb.velocity.y == 0)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
-                animator.SetBool("isFalling", false);
-                animator.SetBool("isJumping", true);
-            }
-
-        }
-
-
-
-        //falling y is negative
-        if (rb.velocity.y < 0)
-        {
-            animator.SetBool("isFalling", true);
-            animator.SetBool("isJumping", false);
-        }
-
-        //not jumping or falling, static
-        if (rb.velocity.y == 0)
-        {
-            animator.SetBool("isFalling", false);
-            animator.SetBool("isJumping", false);
-        }
-
-    }
-
-    private void Update()
-    {
 
         //handle fire button
         if (Input.GetButtonDown("Fire1"))
@@ -100,7 +81,7 @@ public class MovementController : MonoBehaviour
                 AttackUp.SetActive(true);
 
             }
-            else if (Input.GetAxisRaw("Vertical") < 0 && ( animator.GetBool("isFalling") || animator.GetBool("isJumping")))
+            else if (Input.GetAxisRaw("Vertical") < 0 && (animator.GetBool("isFalling") || animator.GetBool("isJumping")))
             {
                 Attackdown.SetActive(true);
             }
@@ -109,19 +90,34 @@ public class MovementController : MonoBehaviour
                 AttackForward.SetActive(true);
             }
         }
-
-        if (AttackForward.activeSelf || AttackUp.activeSelf || Attackdown.activeSelf)
-        {
-            StartCoroutine(DelayedInactivate(0.10f));
-        }
     }
 
-    IEnumerator DelayedInactivate(float waitTime)
+    void FixedUpdate()
     {
-        yield return new WaitForSeconds(waitTime);
-        AttackUp.SetActive(false);
-        AttackForward.SetActive(false);
-        Attackdown.SetActive(false);
+        //TODO REMOVE testing animations
+        Time.timeScale = timeScale; 
+        //Apply movespeed to player when move button is pressed
+        
+        rb.velocity = new Vector2(xaxis, rb.velocity.y);
+        if (FUJumping)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
+            FUJumping = false;
+        }
+
+        //falling y is negative
+        if (rb.velocity.y < 0)
+        {
+            animator.SetBool("isFalling", true);
+            animator.SetBool("isJumping", false);
+        }
+
+        if (rb.velocity.y == 0)
+        {
+            animator.SetBool("isFalling", false);            
+        }
+
+
     }
 
     void Flip() {

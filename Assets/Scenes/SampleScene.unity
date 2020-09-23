@@ -4026,6 +4026,8 @@ MonoBehaviour:
   AttackUp: {fileID: 90889157}
   AttackForward: {fileID: 2112177272}
   Attackdown: {fileID: 217091622}
+  AttackDelay: 0.25
+  framerate: 57
 --- !u!1 &963151545
 GameObject:
   m_ObjectHideFlags: 0
