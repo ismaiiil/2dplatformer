@@ -22,7 +22,7 @@ public class MovementController : MonoBehaviour
     private Animator animator;
     private Animation animation;
     private CinemachineFramingTransposer cameraComp;
-    private bool FUJumping;
+    private bool JumpPressed;
     private float xaxis;
 
     void Awake()
@@ -59,7 +59,7 @@ public class MovementController : MonoBehaviour
         {
             animator.SetBool("isFalling", false);
             animator.SetBool("isJumping", true);
-            FUJumping = true;
+            JumpPressed = true;
         }
 
         //flip player based on running direction
@@ -78,16 +78,16 @@ public class MovementController : MonoBehaviour
         {
             if (Input.GetAxisRaw("Vertical") > 0)
             {
-                AttackUp.SetActive(true);
+                animator.SetTrigger("AttackUpTrigger");
 
             }
             else if (Input.GetAxisRaw("Vertical") < 0 && (animator.GetBool("isFalling") || animator.GetBool("isJumping")))
             {
-                Attackdown.SetActive(true);
+                animator.SetTrigger("AttackDownTrigger");
             }
             else
             {
-                AttackForward.SetActive(true);
+                animator.SetTrigger("AttackTrigger");
             }
         }
     }
@@ -99,10 +99,10 @@ public class MovementController : MonoBehaviour
         //Apply movespeed to player when move button is pressed
         
         rb.velocity = new Vector2(xaxis, rb.velocity.y);
-        if (FUJumping)
+        if (JumpPressed)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
-            FUJumping = false;
+            JumpPressed = false;
         }
 
         //falling y is negative

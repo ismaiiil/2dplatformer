@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: ff35916a511c7504fb6b08648ec42a84
+guid: 29925f037b365dd45828f0b72e12b0db
 TextureImporter:
   fileIDToRecycleName:
-    21300000: jump_0
-    21300002: jump_1
-    21300004: jump_2
-    21300006: jump_3
-    21300008: jump_4
-    21300010: jump_5
+    21300000: attack_forward_0
+    21300002: attack_forward_1
+    21300004: attack_forward_2
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -90,121 +87,61 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jump_0
+      name: attack_forward_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 12
-        width: 867
-        height: 1218
+        x: 355
+        y: 2
+        width: 787
+        height: 1177
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9bcf31df3abd70468cd9c53837e7f6f
+      spriteID: 02228da955a27c0498c3b3e662ee5107
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jump_1
+      name: attack_forward_1
       rect:
         serializedVersion: 2
-        x: 1043
-        y: 0
-        width: 824
-        height: 1227
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+        x: 2001
+        y: 7
+        width: 1761
+        height: 1180
+      alignment: 9
+      pivot: {x: 0.3939096, y: 0.49840084}
+      border: {x: 298, y: 0, z: 661, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 822f56d62ad4ddd4d93eaea1e43d77b2
+      spriteID: 107ffb6a7b2a2234198a3ea02f77b8da
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jump_2
+      name: attack_forward_2
       rect:
         serializedVersion: 2
-        x: 1956
-        y: 0
-        width: 840
-        height: 1230
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+        x: 3958
+        y: 9
+        width: 1101
+        height: 1184
+      alignment: 9
+      pivot: {x: 0.63616663, y: 0.49642846}
+      border: {x: 315, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be1e26f99df469541bc7276ee96199a5
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump_3
-      rect:
-        serializedVersion: 2
-        x: 2862
-        y: 0
-        width: 867
-        height: 1227
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 833b02d7740a3b845bd10cc43e128ece
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump_4
-      rect:
-        serializedVersion: 2
-        x: 3785
-        y: 0
-        width: 880
-        height: 1230
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6129a661f941a5143a062c216b6253ef
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump_5
-      rect:
-        serializedVersion: 2
-        x: 4714
-        y: 12
-        width: 872
-        height: 1192
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 9}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 57230d9ab2744534abba4df96ca8c20f
+      spriteID: 00b9cb4d9cb33f149bd3e62fb2ff5946
       vertices: []
       indices: 
       edges: []
@@ -212,7 +149,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5914724946a6e0144b6df2ed36465d93
+    spriteID: 86c0b1e5c8aab0c4e84dd4ffd530fa07
     vertices: []
     indices: 
     edges: []

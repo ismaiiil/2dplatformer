@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: ff35916a511c7504fb6b08648ec42a84
+guid: 7d06731add989324fb723f913111b040
 TextureImporter:
   fileIDToRecycleName:
-    21300000: jump_0
-    21300002: jump_1
-    21300004: jump_2
-    21300006: jump_3
-    21300008: jump_4
-    21300010: jump_5
+    21300000: attack_up_0
+    21300002: attack_up_1
+    21300004: attack_up_2
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -90,72 +87,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jump_0
+      name: attack_up_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 12
-        width: 867
-        height: 1218
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d9bcf31df3abd70468cd9c53837e7f6f
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump_1
-      rect:
-        serializedVersion: 2
-        x: 1043
-        y: 0
-        width: 824
-        height: 1227
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 822f56d62ad4ddd4d93eaea1e43d77b2
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump_2
-      rect:
-        serializedVersion: 2
-        x: 1956
-        y: 0
+        x: 439
+        y: 17
         width: 840
-        height: 1230
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be1e26f99df469541bc7276ee96199a5
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump_3
-      rect:
-        serializedVersion: 2
-        x: 2862
-        y: 0
-        width: 867
         height: 1227
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -164,47 +101,47 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 833b02d7740a3b845bd10cc43e128ece
+      spriteID: 5e7ebcbb1b9bd4642842d9c2955d2410
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jump_4
+      name: attack_up_1
       rect:
         serializedVersion: 2
-        x: 3785
-        y: 0
-        width: 880
-        height: 1230
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+        x: 1681
+        y: 5
+        width: 1473
+        height: 1624
+      alignment: 9
+      pivot: {x: 0.5923644, y: 0.38344142}
+      border: {x: 441, y: 0, z: 189, w: 376}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6129a661f941a5143a062c216b6253ef
+      spriteID: f8c3c5d74bf701d4c8dd73f9c501b686
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jump_5
+      name: attack_up_2
       rect:
         serializedVersion: 2
-        x: 4714
-        y: 12
-        width: 872
-        height: 1192
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 9}
+        x: 3382
+        y: 11
+        width: 1266
+        height: 1242
+      alignment: 9
+      pivot: {x: 0.6822261, y: 0.4999999}
+      border: {x: 429, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57230d9ab2744534abba4df96ca8c20f
+      spriteID: 3cfc735b84e0aa64fb5a36a40cc465f0
       vertices: []
       indices: 
       edges: []
@@ -212,7 +149,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5914724946a6e0144b6df2ed36465d93
+    spriteID: 24c8768458b09d24b99c95c9b1bd8810
     vertices: []
     indices: 
     edges: []
