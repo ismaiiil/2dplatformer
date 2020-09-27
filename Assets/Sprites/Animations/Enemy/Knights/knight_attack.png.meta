@@ -197,12 +197,12 @@ TextureImporter:
       name: attack.psd_5
       rect:
         serializedVersion: 2
-        x: 5200
+        x: 5101
         y: 0
-        width: 1040.3
+        width: 1139
         height: 1115
       alignment: 9
-      pivot: {x: 0.55, y: 0.35}
+      pivot: {x: 0.5880381, y: 0.35204524}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

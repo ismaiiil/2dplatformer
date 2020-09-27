@@ -1,0 +1,2 @@
+attack_up.png,1677,2392,3
+attack_down.png,1394,2435,3

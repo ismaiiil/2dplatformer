@@ -110,13 +110,13 @@ TextureImporter:
       name: attack_forward_1
       rect:
         serializedVersion: 2
-        x: 2001
-        y: 7
-        width: 1761
+        x: 2513
+        y: 0
+        width: 2446
         height: 1180
       alignment: 9
-      pivot: {x: 0.3939096, y: 0.49840084}
-      border: {x: 298, y: 0, z: 661, w: 0}
+      pivot: {x: 0.29480848, y: 0.49840057}
+      border: {x: 298, y: 0, z: 1340, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -130,8 +130,8 @@ TextureImporter:
       name: attack_forward_2
       rect:
         serializedVersion: 2
-        x: 3958
-        y: 9
+        x: 5002
+        y: 0
         width: 1101
         height: 1184
       alignment: 9
