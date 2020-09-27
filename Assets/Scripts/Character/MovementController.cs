@@ -16,13 +16,12 @@ public class MovementController : MonoBehaviour
     public int framerate;
     public float kickbackIntensity;
     public int kickbackDelay;
-    
+    public float fallSpeedThreshold;
+
 
 
     private bool isVerticalPressed;
     private bool facingRight = true;
-    
-    private Animation animation;
     private bool JumpPressed;
     private bool JumpReleased;
     private float xaxis;
@@ -40,7 +39,6 @@ public class MovementController : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
-        animation = gameObject.GetComponent<Animation>();
         _kickbackDelay = kickbackDelay;
 
     }
@@ -135,7 +133,7 @@ public class MovementController : MonoBehaviour
         }
         
         //falling y is negative
-        if (rb.velocity.y < 0)
+        if (rb.velocity.y < fallSpeedThreshold)
         {
             animator.SetBool("isFalling", true);
             animator.SetBool("isJumping", false);

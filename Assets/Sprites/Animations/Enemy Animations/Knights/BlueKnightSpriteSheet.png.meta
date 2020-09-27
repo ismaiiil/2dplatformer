@@ -1,0 +1,359 @@
+fileFormatVersion: 2
+guid: 1e1175c6a54502442a4542ce60b00172
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: BlueKnightSpriteSheet_0
+    21300002: BlueKnightSpriteSheet_1
+    21300004: BlueKnightSpriteSheet_2
+    21300006: BlueKnightSpriteSheet_3
+    21300008: BlueKnightSpriteSheet_4
+    21300010: BlueKnightSpriteSheet_5
+    21300012: BlueKnightSpriteSheet_6
+    21300014: BlueKnightSpriteSheet_7
+    21300016: BlueKnightSpriteSheet_8
+    21300018: BlueKnightSpriteSheet_9
+    21300020: BlueKnightSpriteSheet_10
+    21300022: BlueKnightSpriteSheet_11
+    21300024: BlueKnightSpriteSheet_12
+    21300026: BlueKnightSpriteSheet_13
+    21300028: BlueKnightSpriteSheet_14
+    21300030: BlueKnightSpriteSheet_15
+    21300032: BlueKnightSpriteSheet_16
+    21300034: BlueKnightSpriteSheet_17
+    21300036: BlueKnightSpriteSheet_18
+    21300038: BlueKnightSpriteSheet_19
+    21300040: BlueKnightSpriteSheet_20
+    21300042: BlueKnightSpriteSheet_21
+    21300044: BlueKnightSpriteSheet_22
+    21300046: BlueKnightSpriteSheet_23
+    21300048: BlueKnightSpriteSheet_24
+    21300050: BlueKnightSpriteSheet_25
+    21300052: BlueKnightSpriteSheet_26
+    21300054: BlueKnightSpriteSheet_27
+    21300056: BlueKnightSpriteSheet_28
+    21300058: BlueKnightSpriteSheet_29
+    21300060: BlueKnightSpriteSheet_30
+    21300062: BlueKnightSpriteSheet_31
+    21300064: BlueKnightSpriteSheet_32
+    21300066: BlueKnightSpriteSheet_33
+    21300068: BlueKnightSpriteSheet_34
+    21300070: BlueKnightSpriteSheet_35
+    21300072: BlueKnightSpriteSheet_36
+    21300074: BlueKnightSpriteSheet_37
+    21300076: BlueKnightSpriteSheet_38
+    21300078: BlueKnightSpriteSheet_39
+  externalObjects: {}
+  serializedVersion: 9
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BlueKnightSpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 202
+        width: 712
+        height: 836
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 167aeb762f5583a429428ceaf5eb2841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueKnightSpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 1429
+        y: 206
+        width: 624
+        height: 835
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6953bb9f34d775488bb3f6f22692658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueKnightSpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 2080
+        y: 210
+        width: 643
+        height: 839
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d275db6eb420044d83d14fe86fb4438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueKnightSpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 2746
+        y: 210
+        width: 639
+        height: 831
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4a182f7dbd15fe478406c8d962fe6e2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueKnightSpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 3408
+        y: 218
+        width: 650
+        height: 823
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1fb516ce8995cf429d1e1aa0d25e370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueKnightSpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 4085
+        y: 210
+        width: 635
+        height: 835
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aefebb4570dce3e49954755e5981efdf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueKnightSpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 4751
+        y: 214
+        width: 639
+        height: 851
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eab9c9e582f5b9c4c80fac4db3add620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueKnightSpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 5413
+        y: 206
+        width: 639
+        height: 859
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 747e940b3ea199049abc36389a7beb83
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueKnightSpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 6083
+        y: 206
+        width: 643
+        height: 862
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce3221958ebe9e64db339d8bbabb271e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueKnightSpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 6734
+        y: 210
+        width: 638
+        height: 847
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d82820b98547ab4397b23d5771a8d09
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueKnightSpriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 7407
+        y: 195
+        width: 651
+        height: 858
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6402af9e78ee7b49bfa9e8beb87f121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 296bd2db1ff6f854eb557f590941a64b
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

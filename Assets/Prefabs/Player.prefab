@@ -132,8 +132,8 @@ GameObject:
   - component: {fileID: 3611622594119571581}
   - component: {fileID: 3611622594119571582}
   - component: {fileID: 3611622594119571583}
-  - component: {fileID: 3611622594119571568}
   - component: {fileID: 3611622594119571569}
+  - component: {fileID: 9039894191114913817}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -247,7 +247,28 @@ MonoBehaviour:
   framerate: 60
   kickbackIntensity: 40
   kickbackDelay: 3
---- !u!61 &3611622594119571568
+--- !u!50 &3611622594119571569
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3611622594119571570}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 1
+  m_Mass: 4.828405
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 4.5
+  m_Material: {fileID: 6200000, guid: 9d36c9a092e00174299d6ee1f88ea73d, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!61 &9039894191114913817
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,29 +292,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.64, y: 12}
+  m_Size: {x: 8.64, y: 11.93}
   m_EdgeRadius: 0
---- !u!50 &3611622594119571569
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3611622594119571570}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 1
-  m_Mass: 4.8567357
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 4.5
-  m_Material: {fileID: 6200000, guid: 9d36c9a092e00174299d6ee1f88ea73d, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
 --- !u!1 &3611622594945855505
 GameObject:
   m_ObjectHideFlags: 0
