@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ConstantValues;
 
 
-public class MovementController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public float moveSpeed;
@@ -17,6 +18,7 @@ public class MovementController : MonoBehaviour
     public float kickbackIntensity;
     public int kickbackDelay;
     public float fallSpeedThreshold;
+    public float slowmoDuration;
 
 
 
@@ -27,7 +29,10 @@ public class MovementController : MonoBehaviour
     private float xaxis;
     private bool kickbacked;
     private int _kickbackDelay;
-    
+    private bool isSlowTime;
+    private float _slowmoDuration;
+
+
 
     void Awake()
     {
@@ -40,12 +45,27 @@ public class MovementController : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
         _kickbackDelay = kickbackDelay;
+        _slowmoDuration = slowmoDuration;
 
     }
 
     private void Update()
     {
-        
+        if (isSlowTime)
+        {
+            Time.timeScale = 0.1f;
+            if (slowmoDuration > 0)
+            {
+                slowmoDuration -= 1;
+            }
+            else {
+                isSlowTime = false;
+                Time.timeScale = 1;
+                slowmoDuration = _slowmoDuration;
+            }
+
+        }
+        //Set axis to the direction pressed in the input
         xaxis = Input.GetAxisRaw("Horizontal") * moveSpeed;
 
         //animation handling for running
@@ -58,6 +78,8 @@ public class MovementController : MonoBehaviour
             animator.SetBool("isRunning", false);
         }
 
+        //If Jump button is pressed, verifu if not jumping or falling and animate appropriately
+        //Bools are often used to transfer input from Update to fixedupdate to avoid glitches
         if (Input.GetButtonDown("Jump") && (!animator.GetBool("isFalling") && !animator.GetBool("isJumping")))
         {
             animator.SetBool("isFalling", false);
@@ -83,6 +105,7 @@ public class MovementController : MonoBehaviour
         //handle fire button
         if (Input.GetButtonDown("Fire1"))
         {
+            //Directional attack
             if (Input.GetAxisRaw("Vertical") > 0)
             {
                 animator.SetTrigger("AttackUpTrigger");
@@ -102,12 +125,11 @@ public class MovementController : MonoBehaviour
     void FixedUpdate()
     {
         
-        //TODO REMOVE testing animations
-        Time.timeScale = timeScale;
         //Apply movespeed to player when move button is pressed
-
+        //While being kickbacked the user cannot input any motion
         if (!kickbacked)
         {
+            //Handle Input in Update to move player based on Input
             rb.velocity = new Vector2(xaxis, rb.velocity.y);
         }
         else {
@@ -116,16 +138,18 @@ public class MovementController : MonoBehaviour
             {
                 kickbacked = false;
                 kickbackDelay = _kickbackDelay;
+
             }
         }
         
-
+        //Handle Jump from Input
         if (JumpPressed)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
             JumpPressed = false;
         }
 
+        //Used to make longer presses cause higher jumps
         if (JumpReleased)
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -139,6 +163,7 @@ public class MovementController : MonoBehaviour
             animator.SetBool("isJumping", false);
         }
 
+        //when velocity is zero Falling anim not played
         if (rb.velocity.y == 0)
         {
             animator.SetBool("isFalling", false);            
@@ -150,15 +175,19 @@ public class MovementController : MonoBehaviour
      *1 right
      *-1 left
      *0 Up
+     * THis method is used to make the player kickback
+     * This method is called from outside by the Attack Collision Trigger boxes
          */
     public void kickbackPlayer(int side)
     {
+        //Based on the side from which the player is relative to the source, kickback is triggered
         if (!kickbacked && side == 1 || side == -1) {
             rb.velocity = new Vector2(side * kickbackIntensity, rb.velocity.y);
             kickbacked = true;
         }
         else if(side ==  0)
         {
+            //if kickback comes from the bottom, the player is sent into the air by just a little bit
             rb.velocity = new Vector2(rb.velocity.x, jumpHeight/1.5f);
         }
         
@@ -166,10 +195,29 @@ public class MovementController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        var CollisionTag = collision.gameObject.GetComponent<CustomTag>();
+
+
+        if (CollisionTag != null)
+        {
+            if (CollisionTag.HasTag(TAG_ENEMY))
+            {
+                Debug.Log("Enemy collided");
+                isSlowTime = true;
+
+                if (transform.position.x < collision.transform.position.x)
+                {
+                    kickbackPlayer(-1);
+                }
+                else{
+                    kickbackPlayer(1);
+                }
+                
+            }
+        }
     }
 
-
+    //Flip player rendering state and postion
     void Flip() {
         facingRight = !facingRight;
         Vector3 theScale = transform.localScale;
