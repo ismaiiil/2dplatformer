@@ -32,17 +32,9 @@ public class AttacksScript : MonoBehaviour
             //Check if the collided object is an enemy and is kickbackable
             if (CollisionTag.HasTag(TAG_ENEMY)) {
                 if (CollisionTag.HasTag(TAG_KICKBACK))
-                {
-                    //If the current object (out of 3 directions, up, forward and below) has name DOWN we kick the player with a mini jump
-                    if (name == OBJ_ATK_DWN)
-                    {
-                        if ((movementController.animator.GetBool("isFalling") || movementController.animator.GetBool("isJumping")))
-                        {
-                            movementController.kickbackPlayer(0);
-                        }
-                    }
+                {                   
                     //else we kcik him back based on the collider position
-                    else if(name == OBJ_ATK_FWD)
+                    if(name == OBJ_ATK_FWD)
                     {
                         if (PlayerRef.transform.position.x > collision.transform.position.x)
                         {
@@ -53,8 +45,28 @@ public class AttacksScript : MonoBehaviour
                             movementController.kickbackPlayer(-1);
                         }
                     }
+
+                    //If the current object (out of 3 directions, up, forward and below) has name DOWN we kick the player with a mini jump
+                    if (name == OBJ_ATK_DWN)
+                    {
+                        if ((movementController.animator.GetBool("isFalling") || movementController.animator.GetBool("isJumping")))
+                        {
+                            movementController.kickbackPlayer(0);
+                        }
+                    }
                 }
-                
+            }
+
+            if (CollisionTag.HasTag(TAG_SPIKED))
+            {
+                //If the current object (out of 3 directions, up, forward and below) has name DOWN we kick the player with a mini jump
+                if (name == OBJ_ATK_DWN)
+                {
+                    if ((movementController.animator.GetBool("isFalling") || movementController.animator.GetBool("isJumping")))
+                    {
+                        movementController.kickbackPlayer(0);
+                    }
+                }
             }
             
         }

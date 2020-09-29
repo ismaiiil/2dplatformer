@@ -15,6 +15,7 @@ public class EnemyKnightAi : MonoBehaviour
     public GameObject Character;
     public float kickbackIntensity;
     public int kickbackDelay;
+    public int lifes = 7;
 
     private Rigidbody2D rb;
     private float _patrolDuration;
@@ -97,6 +98,7 @@ public class EnemyKnightAi : MonoBehaviour
             //while the enemy is in patrol mode keep moving
             if (patrolDuration > 0)
             {
+
                 rb.velocity = new Vector2(walkingSpeed, rb.velocity.y);
                 patrolDuration -= 1;
                 animator.SetBool("isWalking", true);
@@ -117,7 +119,11 @@ public class EnemyKnightAi : MonoBehaviour
                     standByDuration = _standByDuration;
                     patrolDuration = _patrolDuration;
                     walkingSpeed = -walkingSpeed;
-                    Flip();
+                    if (walkingSpeed > 0 && !facingRight || walkingSpeed < 0 && facingRight)
+                    {
+                        Flip();
+                    }
+                    
                     animator.SetBool("isWalking", true);
                 }
             }
@@ -148,6 +154,7 @@ public class EnemyKnightAi : MonoBehaviour
                     Flip();
                 }
             }
+            patrolDuration = 0;
         }       
     }
 
@@ -163,6 +170,12 @@ public class EnemyKnightAi : MonoBehaviour
             //kickback enemy if the nemy is hit by the sword
             if (CollisionTag.HasTag(TAG_PLAYER_ATK))
             {
+                lifes -= 1;
+                animator.SetBool("isHurt", true);
+                if (lifes == 0)
+                {
+                    animator.SetTrigger("TriggerDie");
+                }
                 if (transform.position.x > Character.transform.position.x)
                 {
                     kickback(1);
@@ -180,6 +193,13 @@ public class EnemyKnightAi : MonoBehaviour
         Gizmos.DrawWireSphere(gameObject.transform.position, aggroDistance);
     }
 
+    void isHurtFalse() {
+        animator.SetBool("isHurt", false);
+    }
+
+    void enemyDestroy() {
+        Destroy(gameObject);
+    }
     void Flip()
     {
         facingRight = !facingRight;

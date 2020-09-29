@@ -31,6 +31,7 @@ TextureImporter:
     21300052: simple_inner_bottom_inner
     21300054: simple_right_bottom_inner
     21300056: simple_tileset_0
+    21300058: spike_up
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -688,6 +689,26 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 56ed53eca181eee45ac492b18491dc6b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_up
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 720
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7c791735a47c3040bd37933945a1c10
       vertices: []
       indices: 
       edges: []

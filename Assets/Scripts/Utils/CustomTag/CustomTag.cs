@@ -22,6 +22,11 @@ public class CustomTag : MonoBehaviour
         tags[index] = tagName;
     }
 
+    public void ClearTags()
+    {
+        tags = new List<string>();
+    }
+
     public string GetAtIndex(int index)
     {
         return tags[index];

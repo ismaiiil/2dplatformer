@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static ConstantValues;
 
 
@@ -19,8 +20,9 @@ public class PlayerController : MonoBehaviour
     public int kickbackDelay;
     public float fallSpeedThreshold;
     public float slowmoDuration;
-
-
+    public GameObject SpawnPoint;
+    public int lives = 7;
+    public bool DisableInput;
 
     private bool isVerticalPressed;
     private bool facingRight = true;
@@ -31,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private int _kickbackDelay;
     private bool isSlowTime;
     private float _slowmoDuration;
+    
+    
 
 
 
@@ -51,6 +55,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (DisableInput)
+        {
+            Time.timeScale = 1;
+            return;
+        }
         if (isSlowTime)
         {
             Time.timeScale = 0.1f;
@@ -124,7 +133,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        if (DisableInput)
+        {
+            return;
+        }
         //Apply movespeed to player when move button is pressed
         //While being kickbacked the user cannot input any motion
         if (!kickbacked)
@@ -203,8 +215,16 @@ public class PlayerController : MonoBehaviour
             if (CollisionTag.HasTag(TAG_ENEMY))
             {
                 Debug.Log("Enemy collided");
-                isSlowTime = true;
+                lives -= 1;
+                if (lives == 0)
+                {
+                    //play death animation
+                    animator.SetTrigger("TriggerDeath");
+                    return;
+                }
 
+                isSlowTime = true;
+                animator.SetBool("isInvulnerable", true);
                 if (transform.position.x < collision.transform.position.x)
                 {
                     kickbackPlayer(-1);
@@ -214,7 +234,58 @@ public class PlayerController : MonoBehaviour
                 }
                 
             }
+
+            if (CollisionTag.HasTag(TAG_SPIKED))
+            {
+                Debug.Log("spike collided");
+                //TODO play special pop animation and slow time
+                animator.SetTrigger("TriggerSpike");
+            }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var CollisionTag = collision.gameObject.GetComponent<CustomTag>();
+        if (CollisionTag != null)
+        {
+            if (CollisionTag.HasTag(TAG_CHECKPOINT))
+            {
+                SpawnPoint = collision.gameObject;
+            }
+        }
+
+    }
+
+    private void setPlayerInvulnerable() {
+        Physics2D.IgnoreLayerCollision(LAY_ENEMY,LAY_PLAYER, true);
+        
+    }
+
+    private void setPlayerVulnerable()
+    {
+        Physics2D.IgnoreLayerCollision(LAY_ENEMY, LAY_PLAYER, false);
+        animator.SetBool("isInvulnerable", false);        
+    }
+
+    private void MoveToCheckpoint() {
+        UnFreeze();
+        DisableInput = false;
+        transform.position = SpawnPoint.transform.position;
+    }
+
+    private void FreezePostion() {
+
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+    }
+
+    private void UnFreeze() {
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    private void RestartGame() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     //Flip player rendering state and postion
