@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static ConstantValues;
 
 public class EnemyKnightAi : MonoBehaviour
@@ -29,6 +30,7 @@ public class EnemyKnightAi : MonoBehaviour
     private float minAggroDistance = 1.0f;
     private bool kickbacked;
     private int _kickbackDelay;
+    private bool disableAI;
 
 
     // Start is called before the first frame update
@@ -45,6 +47,10 @@ public class EnemyKnightAi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (disableAI == true)
+        {
+            return;
+        }
         //Check if player is in the range (Circle of aggroDistance)
         if ((transform.position.x - aggroDistance < Character.transform.position.x) && (transform.position.x + aggroDistance > Character.transform.position.x) &&
             (transform.position.y - aggroDistance < Character.transform.position.y) && (transform.position.y + aggroDistance > Character.transform.position.y))
@@ -58,6 +64,11 @@ public class EnemyKnightAi : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (disableAI == true)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            return;
+        }
         //AI code isnt run while the enemy is kickbacked
         if (kickbacked)
         {
@@ -161,6 +172,10 @@ public class EnemyKnightAi : MonoBehaviour
     //handle triggers
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (disableAI == true)
+        {
+            return;
+        }
         //Get tag of the current trigger that entered the knight collider
         var CollisionTag = collision.gameObject.GetComponent<CustomTag>();
 
@@ -175,6 +190,9 @@ public class EnemyKnightAi : MonoBehaviour
                 if (lifes == 0)
                 {
                     animator.SetTrigger("TriggerDie");
+                    disableAI = true;
+                    var _tags = GetComponent<CustomTag>();
+                    _tags.ClearTags();
                 }
                 if (transform.position.x > Character.transform.position.x)
                 {

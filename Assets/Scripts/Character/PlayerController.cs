@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     public GameObject AttackUp;
     public GameObject AttackForward;
     public GameObject Attackdown;
-    public int framerate;
     public float kickbackIntensity;
     public int kickbackDelay;
     public float fallSpeedThreshold;
@@ -23,6 +22,9 @@ public class PlayerController : MonoBehaviour
     public GameObject SpawnPoint;
     public int lives = 7;
     public bool DisableInput;
+    public FadeManager fadeManager;
+    public CinemachineCameraShaker cameraShaker;
+    public float shakingDuration = 1.0f;
 
     private bool isVerticalPressed;
     private bool facingRight = true;
@@ -33,15 +35,13 @@ public class PlayerController : MonoBehaviour
     private int _kickbackDelay;
     private bool isSlowTime;
     private float _slowmoDuration;
-    
-    
+
+
 
 
 
     void Awake()
     {
-        QualitySettings.vSyncCount = 0;  // VSync must be disabled
-        Application.targetFrameRate = framerate;
     }
 
     void Start()
@@ -50,11 +50,14 @@ public class PlayerController : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         _kickbackDelay = kickbackDelay;
         _slowmoDuration = slowmoDuration;
+        fadeManager = GameObject.Find("FadeManager").GetComponent<FadeManager>();
+        Physics2D.IgnoreLayerCollision(LAY_ENEMY, LAY_PLAYER, false);
 
     }
 
     private void Update()
     {
+
         if (DisableInput)
         {
             Time.timeScale = 1;
@@ -110,7 +113,7 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
-        
+
         //handle fire button
         if (Input.GetButtonDown("Fire1"))
         {
@@ -135,6 +138,7 @@ public class PlayerController : MonoBehaviour
     {
         if (DisableInput)
         {
+            rb.velocity = new Vector2(0, rb.velocity.y);
             return;
         }
         //Apply movespeed to player when move button is pressed
@@ -153,7 +157,7 @@ public class PlayerController : MonoBehaviour
 
             }
         }
-        
+
         //Handle Jump from Input
         if (JumpPressed)
         {
@@ -167,7 +171,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0);
             JumpReleased = false;
         }
-        
+
         //falling y is negative
         if (rb.velocity.y < fallSpeedThreshold)
         {
@@ -178,10 +182,10 @@ public class PlayerController : MonoBehaviour
         //when velocity is zero Falling anim not played
         if (rb.velocity.y == 0)
         {
-            animator.SetBool("isFalling", false);            
+            animator.SetBool("isFalling", false);
         }
 
-        
+
     }
     /*
      *1 right
@@ -197,12 +201,12 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(side * kickbackIntensity, rb.velocity.y);
             kickbacked = true;
         }
-        else if(side ==  0)
+        else if (side == 0)
         {
             //if kickback comes from the bottom, the player is sent into the air by just a little bit
-            rb.velocity = new Vector2(rb.velocity.x, jumpHeight/1.5f);
+            rb.velocity = new Vector2(rb.velocity.x, jumpHeight / 1.5f);
         }
-        
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -216,30 +220,33 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("Enemy collided");
                 lives -= 1;
-                if (lives == 0)
-                {
-                    //play death animation
-                    animator.SetTrigger("TriggerDeath");
-                    return;
-                }
-
                 isSlowTime = true;
                 animator.SetBool("isInvulnerable", true);
                 if (transform.position.x < collision.transform.position.x)
                 {
                     kickbackPlayer(-1);
                 }
-                else{
+                else {
                     kickbackPlayer(1);
                 }
-                
+
             }
 
             if (CollisionTag.HasTag(TAG_SPIKED))
             {
                 Debug.Log("spike collided");
+                lives -= 1;
+                cameraShaker.ShakeCamera(shakingDuration);
                 //TODO play special pop animation and slow time
                 animator.SetTrigger("TriggerSpike");
+            }
+
+            if (lives == 0)
+            {
+                //play death animation
+                cameraShaker.ShakeCamera(shakingDuration);
+                animator.SetTrigger("TriggerDeath");
+                return;
             }
         }
     }
@@ -258,14 +265,14 @@ public class PlayerController : MonoBehaviour
     }
 
     private void setPlayerInvulnerable() {
-        Physics2D.IgnoreLayerCollision(LAY_ENEMY,LAY_PLAYER, true);
-        
+        Physics2D.IgnoreLayerCollision(LAY_ENEMY, LAY_PLAYER, true);
+
     }
 
     private void setPlayerVulnerable()
     {
         Physics2D.IgnoreLayerCollision(LAY_ENEMY, LAY_PLAYER, false);
-        animator.SetBool("isInvulnerable", false);        
+        animator.SetBool("isInvulnerable", false);
     }
 
     private void MoveToCheckpoint() {
@@ -276,7 +283,7 @@ public class PlayerController : MonoBehaviour
 
     private void FreezePostion() {
 
-        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        rb.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
     }
 
     private void UnFreeze() {
@@ -288,6 +295,13 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    private void FadeToBlack() {
+        fadeManager.fadeToBlack = true;
+    }
+
+    private void FadeToTrans() {
+        fadeManager.fadeToTrans = true;
+    }
     //Flip player rendering state and postion
     void Flip() {
         facingRight = !facingRight;
