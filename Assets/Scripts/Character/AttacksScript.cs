@@ -8,11 +8,11 @@ public class AttacksScript : MonoBehaviour
 
     public GameObject PlayerRef;
 
-    private PlayerController movementController;
+    private PlayerController PlayerController;
     // Start is called before the first frame update
     void Start()
     {
-        movementController = PlayerRef.gameObject.GetComponent<PlayerController>();
+        PlayerController = PlayerRef.gameObject.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -31,6 +31,8 @@ public class AttacksScript : MonoBehaviour
         {
             //Check if the collided object is an enemy and is kickbackable
             if (CollisionTag.HasTag(TAG_ENEMY)) {
+                //Trigger add SpecialAMount to increase the special bar
+
                 if (CollisionTag.HasTag(TAG_KICKBACK))
                 {                   
                     //else we kcik him back based on the collider position
@@ -38,20 +40,20 @@ public class AttacksScript : MonoBehaviour
                     {
                         if (PlayerRef.transform.position.x > collision.transform.position.x)
                         {
-                            movementController.kickbackPlayer(1);
+                            PlayerController.kickbackPlayer(1);
                         }
                         else
                         {
-                            movementController.kickbackPlayer(-1);
+                            PlayerController.kickbackPlayer(-1);
                         }
                     }
 
                     //If the current object (out of 3 directions, up, forward and below) has name DOWN we kick the player with a mini jump
                     if (name == OBJ_ATK_DWN)
                     {
-                        if ((movementController.animator.GetBool("isFalling") || movementController.animator.GetBool("isJumping")))
+                        if ((PlayerController.animator.GetBool("isFalling") || PlayerController.animator.GetBool("isJumping")))
                         {
-                            movementController.kickbackPlayer(0);
+                            PlayerController.kickbackPlayer(0);
                         }
                     }
                 }
@@ -62,9 +64,9 @@ public class AttacksScript : MonoBehaviour
                 //If the current object (out of 3 directions, up, forward and below) has name DOWN we kick the player with a mini jump
                 if (name == OBJ_ATK_DWN)
                 {
-                    if ((movementController.animator.GetBool("isFalling") || movementController.animator.GetBool("isJumping")))
+                    if ((PlayerController.animator.GetBool("isFalling") || PlayerController.animator.GetBool("isJumping")))
                     {
-                        movementController.kickbackPlayer(0);
+                        PlayerController.kickbackPlayer(0);
                     }
                 }
             }

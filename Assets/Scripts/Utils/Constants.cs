@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ConstantValues
 {
+
     //TAG NAMES
     public static string TAG_ENEMY    = "Enemy";
     public static string TAG_ENEMY_ATTACK = "EnemyAttack";

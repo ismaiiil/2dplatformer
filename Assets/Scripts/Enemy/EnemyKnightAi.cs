@@ -11,13 +11,13 @@ public class EnemyKnightAi : MonoBehaviour
     public float patrolDuration;
     public float standByDuration;
     public float aggroDistance;
-    public float attackRange;
-    public float rayOffset;
     public GameObject Character;
-    public float kickbackIntensity;
-    public int kickbackDelay;
-    public int lifes = 7;
+    public int lifes;
     public GameObject whiteBlood;
+
+    private float rayOffset = 2;
+    public float kickbackIntensity = 40;
+    public int kickbackDelay = 3;
 
     private Rigidbody2D rb;
     private float _patrolDuration;

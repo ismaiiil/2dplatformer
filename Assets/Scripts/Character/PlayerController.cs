@@ -8,24 +8,32 @@ using static ConstantValues;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-    public float moveSpeed;
-    public float jumpHeight;
     private Rigidbody2D rb;
+    [HideInInspector]
     public float timeScale;
     public GameObject AttackUp;
     public GameObject AttackForward;
     public GameObject Attackdown;
-    public float kickbackIntensity;
-    public int kickbackDelay;
-    public float fallSpeedThreshold;
-    public float slowmoDuration;
     public GameObject SpawnPoint;
     public int lives = 7;
+    [HideInInspector]
     public bool DisableInput;
     public FadeManager fadeManager;
     public CinemachineCameraShaker cameraShaker;
-    public float shakingDuration = 1.0f;
     public HeartsHealthVisual healthManager;
+    public RectTransform superAmount;
+
+    private float moveSpeed = 15;
+    private float jumpHeight = 25;
+    private float kickbackIntensity = 40;
+    private int kickbackDelay = 3;
+    private float fallSpeedThreshold = -1.02f;
+    private float slowmoDuration = 20;
+    private float shakingDuration = 1.0f;
+    private float specialMaxAmount = 100;
+    private float currentSpecialAmount;
+    private float minSpecialPosition = -789;
+    private float maxSpecialPostion = -7;
 
     private bool isVerticalPressed;
     private bool facingRight = true;
@@ -38,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private float _slowmoDuration;
     private bool IsVulnerable;
     private bool isDead;
+    private bool IsChangingSpecial;
 
     void Awake()
     {

@@ -107,8 +107,7 @@ public class HeartsHealthVisual : MonoBehaviour
             }
             else
             {
-                RectTransform rectTransform = currentHeart.heartImage.GetComponent<RectTransform>();
-                var newHeart = CreateHeartImage(new Vector2(rectTransform.anchoredPosition.x + 100, rectTransform.anchoredPosition.y));
+                var newHeart = createAfter(currentHeart);
                 newHeart.SetHeartFragments(1);
                 newHeart.currentValue = 0.5f;
             }
@@ -125,19 +124,24 @@ public class HeartsHealthVisual : MonoBehaviour
                 currentHeart.SetHeartFragments(0);
                 currentHeart.currentValue = 1.0f;
 
-                RectTransform rectTransform = currentHeart.heartImage.GetComponent<RectTransform>();
-                var newHeart = CreateHeartImage(new Vector2(rectTransform.anchoredPosition.x + 100, rectTransform.anchoredPosition.y));
+                var newHeart = createAfter(currentHeart);
                 newHeart.SetHeartFragments(1);
                 newHeart.currentValue = 0.5f;
             }
             else
             {
-                RectTransform rectTransform = currentHeart.heartImage.GetComponent<RectTransform>();
-                var newHeart = CreateHeartImage(new Vector2(rectTransform.anchoredPosition.x + 100, rectTransform.anchoredPosition.y));
+                var newHeart = createAfter(currentHeart);
             }
 
         }
         
+    }
+
+    private HeartImage createAfter(HeartImage currentHeart)
+    {
+        RectTransform rectTransform = currentHeart.heartImage.GetComponent<RectTransform>();
+        var newHeart = CreateHeartImage(new Vector2(rectTransform.anchoredPosition.x + 100, rectTransform.anchoredPosition.y));
+        return newHeart;
     }
 
     private void DestroyAllLives() {
