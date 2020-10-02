@@ -9,6 +9,7 @@ TagManager:
   - Spiked
   - PlayerAttack
   - Checkpoint
+  - EnemyAttack
   layers:
   - Default
   - TransparentFX

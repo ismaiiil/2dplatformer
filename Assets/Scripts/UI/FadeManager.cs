@@ -31,7 +31,6 @@ public class FadeManager : MonoBehaviour
             image.color = new Color(image.color.r, image.color.b, image.color.g, _alpha);
             if (_alpha >= 1f)
             {
-                Debug.Log("Alpha 1" + _alpha);
                 fadeToBlack = false;
                 return;
             }

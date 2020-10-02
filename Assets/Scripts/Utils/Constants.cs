@@ -6,6 +6,7 @@ public class ConstantValues
 {
     //TAG NAMES
     public static string TAG_ENEMY    = "Enemy";
+    public static string TAG_ENEMY_ATTACK = "EnemyAttack";
     public static string TAG_SPIKED   = "Spiked";
     public static string TAG_KICKBACK = "Kickback";
     public static string TAG_PLAYER   = "Player";

@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public FadeManager fadeManager;
     public CinemachineCameraShaker cameraShaker;
     public float shakingDuration = 1.0f;
+    public HeartsHealthVisual healthManager;
 
     private bool isVerticalPressed;
     private bool facingRight = true;
@@ -35,10 +36,8 @@ public class PlayerController : MonoBehaviour
     private int _kickbackDelay;
     private bool isSlowTime;
     private float _slowmoDuration;
-
-
-
-
+    private bool IsVulnerable;
+    private bool isDead;
 
     void Awake()
     {
@@ -52,12 +51,20 @@ public class PlayerController : MonoBehaviour
         _slowmoDuration = slowmoDuration;
         fadeManager = GameObject.Find("FadeManager").GetComponent<FadeManager>();
         Physics2D.IgnoreLayerCollision(LAY_ENEMY, LAY_PLAYER, false);
+        IsVulnerable = true;
+        healthManager.drawLives(lives);
 
     }
 
     private void Update()
     {
-
+        if (isDead && !animator.GetCurrentAnimatorStateInfo(0).IsName("die"))
+        {
+            //play death animation
+            cameraShaker.ShakeCamera(shakingDuration);
+            animator.SetTrigger("TriggerDeath");
+            return;
+        }
         if (DisableInput)
         {
             Time.timeScale = 1;
@@ -211,6 +218,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!IsVulnerable)
+        {
+            return;
+        }
         var CollisionTag = collision.gameObject.GetComponent<CustomTag>();
 
 
@@ -218,8 +229,7 @@ public class PlayerController : MonoBehaviour
         {
             if (CollisionTag.HasTag(TAG_ENEMY))
             {
-                Debug.Log("Enemy collided");
-                lives -= 1;
+                healthManager.RemoveLife(1.0f);
                 isSlowTime = true;
                 animator.SetBool("isInvulnerable", true);
                 if (transform.position.x < collision.transform.position.x)
@@ -234,25 +244,29 @@ public class PlayerController : MonoBehaviour
 
             if (CollisionTag.HasTag(TAG_SPIKED))
             {
-                Debug.Log("spike collided");
-                lives -= 1;
+                healthManager.RemoveLife(0.5f);
                 cameraShaker.ShakeCamera(shakingDuration);
                 //TODO play special pop animation and slow time
                 animator.SetTrigger("TriggerSpike");
             }
 
-            if (lives == 0)
+            if (healthManager.CheckIsDead())
             {
-                //play death animation
-                cameraShaker.ShakeCamera(shakingDuration);
-                animator.SetTrigger("TriggerDeath");
-                return;
+                if (isDead)
+                {
+                    return;
+                }
+                isDead = true;
             }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!IsVulnerable)
+        {
+            return;
+        }
         var CollisionTag = collision.gameObject.GetComponent<CustomTag>();
         if (CollisionTag != null)
         {
@@ -260,12 +274,37 @@ public class PlayerController : MonoBehaviour
             {
                 SpawnPoint = collision.gameObject;
             }
+
+            if (CollisionTag.HasTag(TAG_ENEMY_ATTACK))
+            {
+                healthManager.RemoveLife(1.0f);
+                isSlowTime = true;
+                animator.SetBool("isInvulnerable", true);
+                if (transform.position.x < collision.transform.parent.transform.position.x)
+                {
+                    kickbackPlayer(-1);
+                }
+                else
+                {
+                    kickbackPlayer(1);
+                }
+
+            }
+            if (healthManager.CheckIsDead())
+            {
+                if (isDead)
+                {
+                    return;
+                }
+                isDead = true;
+            }
         }
 
     }
 
     private void setPlayerInvulnerable() {
         Physics2D.IgnoreLayerCollision(LAY_ENEMY, LAY_PLAYER, true);
+        IsVulnerable = false;
 
     }
 
@@ -273,6 +312,7 @@ public class PlayerController : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(LAY_ENEMY, LAY_PLAYER, false);
         animator.SetBool("isInvulnerable", false);
+        IsVulnerable = true;
     }
 
     private void MoveToCheckpoint() {

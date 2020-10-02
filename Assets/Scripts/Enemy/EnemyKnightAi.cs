@@ -17,6 +17,7 @@ public class EnemyKnightAi : MonoBehaviour
     public float kickbackIntensity;
     public int kickbackDelay;
     public int lifes = 7;
+    public GameObject whiteBlood;
 
     private Rigidbody2D rb;
     private float _patrolDuration;
@@ -142,8 +143,22 @@ public class EnemyKnightAi : MonoBehaviour
         //The enemy is in chase mode and will track the user position
         else {
             //If enemy is on the right side of the player, run right
+
+            
             if (transform.position.x < Character.transform.position.x)
             {
+                if (facingRight)
+                {
+                    rightLedge = Physics2D.Raycast(new Vector2(transform.position.x + rayOffset, transform.position.y), Vector2.down, 3f);
+                    Debug.DrawRay(new Vector2(transform.position.x + rayOffset, transform.position.y), new Vector2(0, -3), Color.red);
+                    if (rightLedge.collider == null)
+                    {
+                        rb.velocity = new Vector2(0, rb.velocity.y);
+                        animator.SetBool("isWalking", false);
+                        return;
+                    }
+                }
+
                 rb.velocity = new Vector2(_walkingSpeed, rb.velocity.y);
                 animator.SetBool("isWalking", true);
                 if (!facingRight)
@@ -158,6 +173,17 @@ public class EnemyKnightAi : MonoBehaviour
             }
             //if enemy is on the left side of the player, run left
             else {
+                if (!facingRight)
+                {
+                    leftLedge = Physics2D.Raycast(new Vector2(transform.position.x - rayOffset, transform.position.y - 2), Vector2.down, 3f);
+                    Debug.DrawRay(new Vector2(transform.position.x - rayOffset, transform.position.y), new Vector2(0, -3), Color.red);
+                    if (leftLedge.collider == null)
+                    {
+                        rb.velocity = new Vector2(0, rb.velocity.y);
+                        animator.SetBool("isWalking", false);
+                        return;
+                    }
+                }
                 rb.velocity = new Vector2(-_walkingSpeed, rb.velocity.y);
                 animator.SetBool("isWalking", true);
                 if (facingRight)
@@ -187,6 +213,7 @@ public class EnemyKnightAi : MonoBehaviour
             {
                 lifes -= 1;
                 animator.SetBool("isHurt", true);
+                Instantiate(whiteBlood, transform.position, Quaternion.identity);
                 if (lifes == 0)
                 {
                     animator.SetTrigger("TriggerDie");
@@ -206,25 +233,18 @@ public class EnemyKnightAi : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    public void isHurtFalse()
     {
-        Gizmos.DrawWireSphere(gameObject.transform.position, aggroDistance);
-    }
-
-    void isHurtFalse() {
         animator.SetBool("isHurt", false);
     }
 
-    void enemyDestroy() {
+    public void enemyDestroy()
+    {
         Destroy(gameObject);
     }
-    void Flip()
+    public void TriggerAttack()
     {
-        facingRight = !facingRight;
-        //change the walking direction velocity
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+        animator.SetTrigger("triggerAttack");
     }
 
     public void kickback(int side)
@@ -232,5 +252,19 @@ public class EnemyKnightAi : MonoBehaviour
         rb.velocity = new Vector2(side * kickbackIntensity, rb.velocity.y);
         kickbacked = true;
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(gameObject.transform.position, aggroDistance);
+    }
+
+    void Flip()
+    {
+        facingRight = !facingRight;
+        //change the walking direction velocity
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }
