@@ -1,8 +1,10 @@
 fileFormatVersion: 2
-guid: b4a1cd185288dab43be2aaa3dc070c0d
+guid: 4318ccb1b85bbc042b82d8d836ec1913
 TextureImporter:
   fileIDToRecycleName:
-    21300000: special_bar_0000_super_outer_0
+    21300000: player_charge_0
+    21300002: player_charge_1
+    21300004: player_charge_2
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -85,13 +87,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: special_bar_0000_super_outer_0
+      name: player_charge_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 9
-        width: 2435
-        height: 184
+        x: 46
+        y: 1403
+        width: 7
+        height: 4
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -99,7 +101,47 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2903e07db8d3ff04ea3ca238d9ab7b6c
+      spriteID: 749d54962c983174db94b4a4ac01c1ea
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_charge_1
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 1177
+        width: 866
+        height: 1106
+      alignment: 9
+      pivot: {x: 0.4937208, y: 0.5270417}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d978a346968c5c641b32bd625bb142f9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_charge_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 923
+        height: 1106
+      alignment: 9
+      pivot: {x: 0.5324025, y: 0.5270417}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 347c282c4ac0a4b43afb2917bcecf3fa
       vertices: []
       indices: 
       edges: []
@@ -107,7 +149,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 0da63caa9cee0b14d8d9cfa27fb0b697
+    spriteID: 6631d4e219866b948a223e97e836e40d
     vertices: []
     indices: 
     edges: []

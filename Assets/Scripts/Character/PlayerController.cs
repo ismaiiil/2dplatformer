@@ -15,25 +15,30 @@ public class PlayerController : MonoBehaviour
     public GameObject AttackForward;
     public GameObject Attackdown;
     public GameObject SpawnPoint;
-    public int lives = 7;
+    public int lives;
     [HideInInspector]
     public bool DisableInput;
     public FadeManager fadeManager;
     public CinemachineCameraShaker cameraShaker;
     public HeartsHealthVisual healthManager;
     public float SuperAmount;
+    public GameObject preChargeParticles;
     
 
     private float moveSpeed = 15;
     private float jumpHeight = 25;
     private float kickbackIntensity = 40;
     private int kickbackDelay = 3;
-    private float fallSpeedThreshold = -1.02f;
+    private float fallSpeedThreshold = -2.00f;
     private float slowmoDuration = 20;
     private float shakingDuration = 1.0f;
     private float currentSpecialAmount;
     public float MaxSuperAMount = 100;
     private float HitSuperAmount = 10;
+    private float MaxChargeThreshold = 40;
+    private float SuperHealthCost = 20;
+    private float ChargeRate = 0.4f;
+    
 
     private bool isVerticalPressed;
     private bool facingRight = true;
@@ -47,7 +52,10 @@ public class PlayerController : MonoBehaviour
     private bool IsVulnerable;
     private bool isDead;
     private bool IsChangingSpecial;
-    
+    [SerializeField]
+    private float ChargeThreshold;
+    private float superBuffer;
+    private bool IsIdle;
 
     void Awake()
     {
@@ -82,6 +90,49 @@ public class PlayerController : MonoBehaviour
             Time.timeScale = 1;
             return;
         }
+
+
+        if (SuperAmount > 0)
+        {
+            if ( IsIdle && Input.GetButton("Charge"))
+            {
+                ChargeThreshold += 1;
+                preChargeParticles.SetActive(true);
+            }
+            if (ChargeThreshold >= MaxChargeThreshold)
+            {
+                preChargeParticles.SetActive(false);
+                IsChangingSpecial = true;
+                animator.SetBool("isCharging", true);
+                if (IsChangingSpecial)
+                {
+                    SuperAmount -= ChargeRate;
+                    superBuffer += ChargeRate;
+
+                    if (superBuffer >= SuperHealthCost)
+                    {
+                        //Add life after we have spent enough super (SuperHealthCost)
+                        healthManager.Addlife(1);
+                        //Reset buffer
+                        superBuffer = 0;
+                    }
+
+                }
+            }
+        }
+
+        if (Input.GetButtonUp("Charge") || (SuperAmount <= 0 && superBuffer <=0 ) || !IsIdle)
+        {
+            preChargeParticles.SetActive(false);
+            if (superBuffer != 0)
+            {
+                SuperAmount += superBuffer;
+                superBuffer = 0;
+            }
+            ChargeThreshold = 0;
+            animator.SetBool("isCharging", false);
+        }
+
         if (isSlowTime)
         {
             Time.timeScale = 0.1f;
@@ -153,13 +204,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool IsAnimating(string animation)
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).IsName(animation);
+    }
+
     void FixedUpdate()
     {
+
         if (DisableInput)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
             return;
         }
+
+        if ((rb.velocity.y > 0 ||  rb.velocity.x > 0) || (rb.velocity.y < fallSpeedThreshold || rb.velocity.x < 0))
+        {
+            IsIdle = false;
+        }
+        else { IsIdle = true; }
         //Apply movespeed to player when move button is pressed
         //While being kickbacked the user cannot input any motion
         if (!kickbacked)

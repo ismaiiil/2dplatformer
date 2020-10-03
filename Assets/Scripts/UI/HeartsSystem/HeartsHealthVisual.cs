@@ -10,6 +10,7 @@ public class HeartsHealthVisual : MonoBehaviour
     [SerializeField] private Sprite heartSprite_half; 
 
     private List<HeartImage> heartImageList;
+    private float maxLifes;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class HeartsHealthVisual : MonoBehaviour
 
     public void drawLives(int lifeAmount) {
         DestroyAllLives();
+        maxLifes = lifeAmount;
         for (int i = 0; i <= lifeAmount-1; i++)
         {
             CreateHeartImage(new Vector2(100*i, 0));
@@ -93,6 +95,10 @@ public class HeartsHealthVisual : MonoBehaviour
 
     public void Addlife(float amount)
     {
+        if (heartImageList.Count+1 > maxLifes)
+        {
+            return;
+        }
         if (amount == 0.5f)
         {
             if (heartImageList.Count - 1 < 0)
