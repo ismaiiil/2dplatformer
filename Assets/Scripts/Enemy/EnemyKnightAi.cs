@@ -32,6 +32,7 @@ public class EnemyKnightAi : MonoBehaviour
     private bool kickbacked;
     private int _kickbackDelay;
     private bool disableAI;
+    private PlayerController playerController;
 
 
     // Start is called before the first frame update
@@ -43,6 +44,7 @@ public class EnemyKnightAi : MonoBehaviour
         _standByDuration = standByDuration;
         _walkingSpeed = walkingSpeed;
         _kickbackDelay = kickbackDelay;
+        playerController = Character.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -212,7 +214,7 @@ public class EnemyKnightAi : MonoBehaviour
             if (CollisionTag.HasTag(TAG_PLAYER_ATK))
             {
                 lifes -= 1;
-                animator.SetBool("isHurt", true);
+                playerController.increaseSuper();
                 Instantiate(whiteBlood, transform.position, Quaternion.identity);
                 if (lifes == 0)
                 {
@@ -221,6 +223,7 @@ public class EnemyKnightAi : MonoBehaviour
                     var _tags = GetComponent<CustomTag>();
                     _tags.ClearTags();
                 }
+                animator.SetBool("isHurt", true);
                 if (transform.position.x > Character.transform.position.x)
                 {
                     kickback(1);

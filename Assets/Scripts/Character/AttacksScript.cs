@@ -7,7 +7,6 @@ public class AttacksScript : MonoBehaviour
 {
 
     public GameObject PlayerRef;
-
     private PlayerController PlayerController;
     // Start is called before the first frame update
     void Start()
@@ -30,9 +29,7 @@ public class AttacksScript : MonoBehaviour
         if (CollisionTag != null)
         {
             //Check if the collided object is an enemy and is kickbackable
-            if (CollisionTag.HasTag(TAG_ENEMY)) {
-                //Trigger add SpecialAMount to increase the special bar
-
+            if (CollisionTag.HasTag(TAG_ENEMY)) {                
                 if (CollisionTag.HasTag(TAG_KICKBACK))
                 {                   
                     //else we kcik him back based on the collider position
@@ -77,9 +74,6 @@ public class AttacksScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (PlayerRef != null) {
-            
-        }
 
     }
 

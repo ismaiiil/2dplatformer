@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour
     public FadeManager fadeManager;
     public CinemachineCameraShaker cameraShaker;
     public HeartsHealthVisual healthManager;
-    public RectTransform superAmount;
+    public float SuperAmount;
+    
 
     private float moveSpeed = 15;
     private float jumpHeight = 25;
@@ -30,10 +31,9 @@ public class PlayerController : MonoBehaviour
     private float fallSpeedThreshold = -1.02f;
     private float slowmoDuration = 20;
     private float shakingDuration = 1.0f;
-    private float specialMaxAmount = 100;
     private float currentSpecialAmount;
-    private float minSpecialPosition = -789;
-    private float maxSpecialPostion = -7;
+    public float MaxSuperAMount = 100;
+    private float HitSuperAmount = 10;
 
     private bool isVerticalPressed;
     private bool facingRight = true;
@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     private bool IsVulnerable;
     private bool isDead;
     private bool IsChangingSpecial;
+    
 
     void Awake()
     {
@@ -62,11 +63,13 @@ public class PlayerController : MonoBehaviour
         Physics2D.IgnoreLayerCollision(LAY_ENEMY, LAY_PLAYER, false);
         IsVulnerable = true;
         healthManager.drawLives(lives);
+        SuperAmount = 0f;
 
     }
 
     private void Update()
     {
+        SuperAmount = Mathf.Clamp(SuperAmount, 0, MaxSuperAMount);
         if (isDead && !animator.GetCurrentAnimatorStateInfo(0).IsName("die"))
         {
             //play death animation
@@ -203,6 +206,11 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+    public void increaseSuper() {
+        SuperAmount += HitSuperAmount;
+    }
+
     /*
      *1 right
      *-1 left
